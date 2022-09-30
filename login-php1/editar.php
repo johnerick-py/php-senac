@@ -7,9 +7,18 @@ $usuario = $_SESSION['usuario'];
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
+    
+
     $sql = "SELECT * FROM login WHERE usuario_id = {$id}";
     $resultado = mysqli_query($conexao, $sql);
     $linhas = mysqli_fetch_assoc($resultado);
+
+    if($usuario == $linhas['usuario']){
+        
+        $_SESSION["usuario_nao_excluido"] = $usuario;
+        header('Location: listar.php');
+        exit;
+    }
 
     $nome = $linhas['nome_completo'];
     $usuario_edit = $linhas['usuario'];
@@ -18,7 +27,6 @@ if (isset($_GET['id'])) {
 }
 
 if (isset($_POST['salvar'])) {
-
     $nome = $_POST['nome_completo'];
     $usuario_edit = $_POST['usuario'];
     $senha = $_POST['senha'];

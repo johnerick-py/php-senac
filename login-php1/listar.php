@@ -93,15 +93,31 @@ $usuario = $_SESSION['usuario'];
             <div class="container">
                 <h1 class="title is-1 center" style="text-align: center;">Listar Usuários</h1>
                 <div class="column">
+
+
+                    <?php
+                    if (isset($_SESSION["usuario_nao_excluido"])) {
+                    ?>
+                        <div class="notification is-danger">
+                            <p>Usuario logado não pode ser alterado ou exlcuido.</p>
+                        </div>
+                    <?php
+                    unset($_SESSION["usuario_nao_excluido"]);
+                    }
+                    ?>
+
                     <div class="box" style="background-color: #201f1f;  color: white;">
 
                         <?php
                         $consulta = "SELECT * FROM login";
                         $resultado = mysqli_query($conexao, $consulta);
-
                         ?>
 
+
+
                         <table class="table is-bordered  is-fullwidth" style="background: #201f1f; color: white;" align="center">
+
+
 
                             <tr>
                                 <td style="padding-right: 20px;"><strong>ID</strong></td>
@@ -109,7 +125,7 @@ $usuario = $_SESSION['usuario'];
                                 <td style="padding-right: 20px;"><strong>Usuario</strong></td>
                                 <td style="padding-right: 20px;"><strong>Senha</strong></td>
                                 <td style="padding-right: 20px;" align="center" colspan="2"><strong>Editar / Excluir</strong></td>
-                                
+
                             </tr>
 
                             <tbody>
@@ -126,14 +142,14 @@ $usuario = $_SESSION['usuario'];
                                          <td>' . $usuario . '</td>
                                          <td>' . $senha . '</td>
                                          <td align="center"> 
-                                         <a class="button is-success" href="editar.php?id='.$id.'">
+                                         <a class="button is-success" href="editar.php?id=' . $id . '">
                                            <span class="icon">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                            </span>
                                          </a>
                                          </td>                                   
                                          <td align="center"> 
-                                         <a class="button is-danger" href="excluir.php?id='.$id.'" >
+                                         <a class="button is-danger" href="excluir.php?id=' . $id . '" >
                                            <span class="icon">
                                             <i class="fa-solid fa-trash"></i>
                                            </span>
@@ -150,7 +166,7 @@ $usuario = $_SESSION['usuario'];
                                 <td style="padding-right: 20px;"><strong>Usuario</strong></td>
                                 <td style="padding-right: 20px;"><strong>Senha</strong></td>
                                 <td style="padding-right: 20px;" align="center" colspan="2"><strong>Editar / Excluir</strong></td>
-                                
+
                             </tr>
 
                         </table>

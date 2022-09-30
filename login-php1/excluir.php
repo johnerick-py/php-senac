@@ -3,6 +3,23 @@
 session_start();
 include('conexao.php');
 
+
+$usuario = $_SESSION['usuario'];
+
+if(isset($_GET['id'])){
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM login WHERE usuario_id = {$id}";
+    $resultado = mysqli_query($conexao, $sql);
+    $linhas = mysqli_fetch_assoc($resultado);
+
+    if($usuario == $linhas['usuario']){
+        $_SESSION["usuario_nao_excluido"] = $usuario;
+        header('Location: listar.php');
+        exit;
+    }
+}
+
+
 if(isset($_GET['id'])){
     $id = $_GET['id'];
 
@@ -13,6 +30,8 @@ if(isset($_GET['id'])){
         header('Location: listar.php');
     }
 }
+
+
 
 
 ?>
